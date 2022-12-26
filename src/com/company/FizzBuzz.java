@@ -1,7 +1,7 @@
 package com.company;
 
         public class FizzBuzz {
-            public static String say(int number) {
+            public static String generateString(int number) {
                 String strReturn = null;
 
                 if (number % 15 == 0) strReturn = "FizzBuzz";

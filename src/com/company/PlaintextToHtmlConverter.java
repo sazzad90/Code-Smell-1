@@ -8,7 +8,6 @@ import java.util.List;
 
 public class PlaintextToHtmlConverter {
     String source;
-    int i;
     List<String> result;
     List<String> convertedLine;
     String characterToConvert;
@@ -25,48 +24,28 @@ public class PlaintextToHtmlConverter {
 
     private String basicHtmlEncode(String source) {
         this.source = source;
-        i = 0;
+        int i = 0;
         result = new ArrayList<>();
         convertedLine = new ArrayList<>();
-        characterToConvert = stashNextCharacterAndAdvanceThePointer();
+        characterToConvert = stashNextCharacterAndAdvanceThePointer(i);
 
         while (i <= this.source.length()) {
-            switch (characterToConvert) {
-                case "<":
-                    convertedLine.add("&lt;");
-                    break;
-                case ">":
-                    convertedLine.add("&gt;");
-                    break;
-                case "&":
-                    convertedLine.add("&amp;");
-                    break;
-                case "\n":
-                    addANewLine();
-                    break;
-                default:
-                    pushACharacterToTheOutput();
-            }
-
+            checkCondition();
             if (i >= source.length()) break;
-
-            characterToConvert = stashNextCharacterAndAdvanceThePointer();
+            characterToConvert = stashNextCharacterAndAdvanceThePointer(i);
         }
         addANewLine();
         String finalResult = String.join("<br />", result);
         return finalResult;
     }
 
-    //pick the character from source string
-    //and increment the pointer
-    private String stashNextCharacterAndAdvanceThePointer() {
+    private String stashNextCharacterAndAdvanceThePointer(int i) {
         char c = source.charAt(i);
         i += 1;
         return String.valueOf(c);
     }
 
-    //stringfy convertedLine array and push into result
-    //reset convertedLine
+
     private void addANewLine() {
         String line = String.join("", convertedLine);
         result.add(line);
@@ -76,4 +55,14 @@ public class PlaintextToHtmlConverter {
     private void pushACharacterToTheOutput() {
         convertedLine.add(characterToConvert);
     }
+
+    private void checkCondition(){
+        if(characterToConvert == "<") convertedLine.add("&lt;");
+        else if(characterToConvert == ">") convertedLine.add("&gt;");
+        else if(characterToConvert == "&") convertedLine.add("&amp;");
+        else if(characterToConvert == "\n") addANewLine();
+        else pushACharacterToTheOutput();
+    }
 }
+
+
