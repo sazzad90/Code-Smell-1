@@ -125,16 +125,6 @@ public class TriviaGame {
         return winner;
     }
 
-    public boolean wrongAnswer() {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-        inPenaltyBox.add(true);
-
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
-        return true;
-    }
-
     private boolean didPlayerWin() {
         return !(purses.get(currentPlayer) == 6);
     }

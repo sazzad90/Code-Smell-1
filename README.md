@@ -20,3 +20,4 @@
 4. long method(method is extracted)                                                         99
 5. duplicate code(method is extracted)                                                      61
 6. inappropriate naming(add function is replaced with addPlayerDetails)                     32
+7. dead code(wrongAnswer method)                                                            127
